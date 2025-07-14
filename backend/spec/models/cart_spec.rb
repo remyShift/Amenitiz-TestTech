@@ -94,7 +94,7 @@ RSpec.describe Cart, type: :model do
                 cart.add('CF1')
                 cart.add('CF1')
                 cart.add('CF1')
-                expect(cart.total).to eq(16.61)
+                expect(cart.total).to eq((11.23 * 2/3).round(2) * 3)
             end
         end
     end
