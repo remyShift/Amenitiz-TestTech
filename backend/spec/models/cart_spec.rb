@@ -61,11 +61,31 @@ RSpec.describe Cart, type: :model do
     end
 
     describe "pricing rules" do
-        it "should apply the discount for green tea" do
-            cart = Cart.new
-            cart.add('GR1')
-            cart.add('GR1')
-            expect(cart.total).to eq(3.11)
+        describe "BOGO rule on green tea" do
+            it "should apply BOGO rule for 2 GR1s (pay 1 get 2)" do
+                cart = Cart.new
+                cart.add('GR1')
+                cart.add('GR1')
+                expect(cart.total).to eq(3.11)
+            end
+
+            it "should apply BOGO rule for 3 GR1s (pay 2 get 3)" do
+                cart = Cart.new
+                cart.add('GR1')
+                cart.add('GR1')
+                cart.add('GR1')
+                expect(cart.total).to eq(6.22)
+            end
+        end
+
+        describe "price reduction on strawberries" do
+            it "should apply bulk discount for 3 or more strawberries" do
+                cart = Cart.new
+                cart.add('SR1')
+                cart.add('SR1')
+                cart.add('SR1')
+                expect(cart.total).to eq(13.50)
+            end
         end
     end
 end
