@@ -1,10 +1,10 @@
 module PricingRules
     class BasePricingRule
-        def initialize(code:, base_price:)
+        def initialize(code:)
             @code = code
-            @base_price = base_price
+            @base_price = ProductsCatalog.find(code)[:price]
         end
-    
+
         def count(items)
             items.count(@code)
         end
