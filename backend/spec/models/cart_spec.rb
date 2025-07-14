@@ -37,5 +37,12 @@ RSpec.describe Cart, type: :model do
             cart.add('CF1')
             expect(cart.total).to eq(11.23)
         end
+
+        it "should return 6.22 when the cart has 2 green teas" do
+            cart = Cart.new
+            cart.add('GR1')
+            cart.add('GR1')
+            expect(cart.total).to eq(6.22)
+        end
     end
 end
