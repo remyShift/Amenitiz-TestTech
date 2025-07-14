@@ -79,12 +79,22 @@ RSpec.describe Cart, type: :model do
         end
 
         describe "price reduction on strawberries" do
-            it "should apply bulk discount for 3 or more strawberries" do
+            it "should apply bulk discount for 3 or more strawberries (4.50 each)" do
                 cart = Cart.new
                 cart.add('SR1')
                 cart.add('SR1')
                 cart.add('SR1')
                 expect(cart.total).to eq(13.50)
+            end
+        end
+
+        describe "price reduction on coffee" do
+            it "should apply bulk discount for 3 or more coffees (2/3 of the base price each)" do
+                cart = Cart.new
+                cart.add('CF1')
+                cart.add('CF1')
+                cart.add('CF1')
+                expect(cart.total).to eq(16.61)
             end
         end
     end
