@@ -38,13 +38,6 @@ RSpec.describe Cart, type: :model do
             expect(cart.total).to eq(11.23)
         end
 
-        it "should return 6.22 when the cart has 2 green teas" do
-            cart = Cart.new
-            cart.add('GR1')
-            cart.add('GR1')
-            expect(cart.total).to eq(6.22)
-        end
-
         it "should return 10 when the cart has 2 strawberries" do
             cart = Cart.new
             cart.add('SR1')
@@ -64,6 +57,15 @@ RSpec.describe Cart, type: :model do
             cart.add('GR1')
             cart.add('SR1')
             expect(cart.total).to eq(8.11)
+        end
+    end
+
+    describe "pricing rules" do
+        it "should apply the discount for green tea" do
+            cart = Cart.new
+            cart.add('GR1')
+            cart.add('GR1')
+            expect(cart.total).to eq(3.11)
         end
     end
 end
