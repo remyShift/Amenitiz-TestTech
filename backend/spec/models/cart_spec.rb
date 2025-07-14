@@ -13,4 +13,11 @@ RSpec.describe Cart, type: :model do
             expect(cart.items).to eq(['GR1'])
         end
     end
+
+    describe "#total" do
+        it "should return 0 when the cart is empty" do
+            cart = Cart.new
+            expect(cart.total).to eq(0)
+        end
+    end
 end
