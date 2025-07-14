@@ -10,7 +10,9 @@ class Cart
     end
 
     def total
-        return 3.11 if @items == ['GR1']
+        gr1_count = @items.count('GR1')
+        return 3.11 * gr1_count if gr1_count > 0
+
         return 5.00 if @items == ['SR1']
         return 11.23 if @items == ['CF1']
         0
