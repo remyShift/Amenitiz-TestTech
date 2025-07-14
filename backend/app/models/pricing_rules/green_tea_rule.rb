@@ -1,4 +1,3 @@
-
 module PricingRules
     class GreenTeaRule < BasePricingRule
         def initialize
