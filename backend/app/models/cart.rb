@@ -12,11 +12,11 @@ class Cart
     def total
         total = 0
 
-        gr1_count = @items.count('GR1')
+        gr1_count = @items.count('GR1') 
         sr1_count = @items.count('SR1')
         cf1_count = @items.count('CF1')
         
-        total += 3.11 * gr1_count
+        total += 3.11 * ((gr1_count + 1) / 2)
         total += 5.00 * sr1_count
         total += 11.23 * cf1_count
 
