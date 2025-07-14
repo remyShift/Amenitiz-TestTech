@@ -17,7 +17,7 @@ class Cart
         cf1_count = @items.count('CF1')
         
         total += 3.11 * ((gr1_count + 1) / 2)
-        total += 5.00 * sr1_count
+        total += (sr1_count >= 3 ? 4.50 : 5.00) * sr1_count
         total += 11.23 * cf1_count
 
         total
