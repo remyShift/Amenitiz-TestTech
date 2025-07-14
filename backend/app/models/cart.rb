@@ -10,15 +10,16 @@ class Cart
     end
 
     def total
+        total = 0
+
         gr1_count = @items.count('GR1')
-        return 3.11 * gr1_count if gr1_count > 0
-
         sr1_count = @items.count('SR1')
-        return 5.00 * sr1_count if sr1_count > 0
-
         cf1_count = @items.count('CF1')
-        return 11.23 * cf1_count if cf1_count > 0
+        
+        total += 3.11 * gr1_count
+        total += 5.00 * sr1_count
+        total += 11.23 * cf1_count
 
-        0
+        total
     end
 end
