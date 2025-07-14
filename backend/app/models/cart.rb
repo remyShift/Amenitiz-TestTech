@@ -13,7 +13,9 @@ class Cart
         gr1_count = @items.count('GR1')
         return 3.11 * gr1_count if gr1_count > 0
 
-        return 5.00 if @items == ['SR1']
+        sr1_count = @items.count('SR1')
+        return 5.00 * sr1_count if sr1_count > 0
+
         return 11.23 if @items == ['CF1']
         0
     end
