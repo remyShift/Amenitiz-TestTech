@@ -1,11 +1,10 @@
 class Cart
     attr_reader :items
 
-    def initialize(rules = PricingRules.constants.reject { |c| c == :BasePricingRule }
-        .map { |const| PricingRules.const_get(const).new })
-        
+    def initialize()
         @items = [] 
-        @rules = rules
+        @rules = PricingRules.constants.reject { |c| c == :BasePricingRule }
+            .map { |const| PricingRules.const_get(const).new }
     end
 
     def add(code)
