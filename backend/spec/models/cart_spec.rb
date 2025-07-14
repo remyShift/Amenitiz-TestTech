@@ -94,8 +94,29 @@ RSpec.describe Cart, type: :model do
                 cart.add('CF1')
                 cart.add('CF1')
                 cart.add('CF1')
-                expect(cart.total).to eq((11.23 * 2/3).round(2) * 3)
+                expect(cart.total).to eq((11.23 * 2/3).to_f * 3)
             end
+        end
+    end
+
+    describe "examples scenarios" do
+        it "should return 16.61 when the cart has 1 green tea and 3 strawberries" do
+            cart = Cart.new
+            cart.add('SR1')
+            cart.add('SR1')
+            cart.add('GR1')
+            cart.add('SR1')
+            expect(cart.total).to eq(16.61)
+        end
+
+        it "should return 30.57 when the cart has 1 green tea, 1 strawberry and 3 coffees" do
+            cart = Cart.new
+            cart.add('GR1')
+            cart.add('CF1')
+            cart.add('SR1')
+            cart.add('CF1')
+            cart.add('CF1')
+            expect(cart.total).to eq(30.57)
         end
     end
 end
