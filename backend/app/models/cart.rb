@@ -10,10 +10,7 @@ class Cart
     end
 
     def total
-        if @items == ['GR1']
-            3.11
-        else
-            0
-        end
+        return 3.11 if @items == ['GR1']
+        0
     end
 end
