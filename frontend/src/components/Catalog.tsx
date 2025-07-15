@@ -1,5 +1,6 @@
 import { useCatalog } from "@/hooks/useCatalog";
 import type { CatalogItem } from "@/types/Catalog";
+import CatalogCard from "@/components/cards/CatalogCard";
 
 export default function Catalog() {
     const { isLoading, error, data: catalog } = useCatalog();
@@ -15,11 +16,7 @@ export default function Catalog() {
     return (
         <div data-testid="catalog" className="flex flex-col gap-4">
             {catalog!.map((item: CatalogItem) => (
-                <div data-testid="catalog-item" key={item.id}>
-                    <p className="text-lg font-bold text-blue-600">
-                        {item.code} | {item.name} | {item.price}
-                    </p>
-                </div>
+                <CatalogCard key={item.id} item={item} />
             ))}
         </div>
     );
