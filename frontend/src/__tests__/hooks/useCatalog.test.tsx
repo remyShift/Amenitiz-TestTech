@@ -40,4 +40,14 @@ describe('useCatalog', () => {
 
         expect(result.current.error).toBe('An error occurred while fetching the catalog : Error');
     });
+
+    it('should set the catalog when the catalog is fetched without error', async () => {
+        mockGetCatalog.mockResolvedValue([]);
+
+        const { result } = renderHook(() => useCatalog());
+
+        await act(async () => result.current.fetchCatalog());
+
+        expect(result.current.catalog).toEqual([]);
+    });
 });
