@@ -1,7 +1,7 @@
 import { useCart } from "@/hooks/useCart"
 
 export default function Cart() {
-    const { items, removeItem } = useCart();
+    const { items, removeItem, total } = useCart();
 
     return (
         <div data-testid="cart">
@@ -14,6 +14,7 @@ export default function Cart() {
                     <button data-testid="remove-button" onClick={() => removeItem(item)}>Remove</button>
                 </div>
             ))}
+            <p data-testid="total-price">{total}€</p>
         </div>
     )
 }
