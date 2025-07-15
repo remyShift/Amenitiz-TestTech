@@ -77,8 +77,8 @@ describe('useCart', () => {
         });
     });
 
-    it('should remove an item from the cart when the removeItem function is called', () => {
-        const itemToAdd2 = { id: 2, code: '456', name: 'Tea', price: 5 };
+    it('should remove an item from the cart when the removeItem function is called on an item with quantity 1', () => {
+        const itemToAdd2 = { id: 2, code: '456', name: 'Tea', price: 5};
         const itemToAdd3 = { id: 3, code: '789', name: 'Water', price: 2 };
         const itemToAdd4 = { id: 4, code: '101', name: 'Milk', price: 3 };
 
@@ -98,6 +98,23 @@ describe('useCart', () => {
         });
 
         expect(result.current.items).toEqual([{ ...itemToAdd, quantity: 1 }, { ...itemToAdd3, quantity: 1 }, { ...itemToAdd4, quantity: 1 }]);
+    });
+
+    it('should lower the quantity of an item when the removeItem function is called on an item with quantity greater than 1', () => {
+        const { result } = renderHook(() => useCart());
+
+        act(() => {
+            result.current.addItem(itemToAdd);
+            result.current.addItem(itemToAdd);
+        });
+
+        expect(result.current.items).toEqual([{ ...itemToAdd, quantity: 2 }]);
+
+        act(() => {
+            result.current.removeItem(itemToAdd);
+        });
+
+        expect(result.current.items).toEqual([{ ...itemToAdd, quantity: 1 }]);
     });
 
     it('should calculate the total price of the cart with the computeOrderTotal function when an item is removed', async () => {

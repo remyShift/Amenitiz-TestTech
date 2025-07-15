@@ -89,7 +89,7 @@ describe('Cart', () => {
 
         render(<Cart />);
         fireEvent.click(screen.getAllByTestId('remove-button')[0]);
-        expect(removeItem).toHaveBeenCalledWith({ id: 1, code: 'GR1', name: 'Green Tea', price: 3.11 });
+        expect(removeItem).toHaveBeenCalledWith({ id: 1, code: 'GR1', name: 'Green Tea', price: 3.11, quantity: 2 });
         expect(removeItem).toHaveBeenCalledTimes(1);
         expect(screen.getByText('1')).toBeInTheDocument();
         

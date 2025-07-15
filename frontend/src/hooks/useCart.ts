@@ -40,9 +40,12 @@ export const useCart = () => {
 
 	const removeItem = (item: CatalogItem) => {
 		setItems((prevItems) => {
-			const newItems = prevItems.filter((i) => i.id !== item.id);
+			const newItems = prevItems.map((i) =>
+				i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i
+			);
+			const filteredItems = newItems.filter((i) => i.quantity > 0);
 			localStorage.setItem('cart', JSON.stringify(newItems));
-			return newItems;
+			return filteredItems;
 		});
 
 		refetchTotal();
