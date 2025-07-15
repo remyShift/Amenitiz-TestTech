@@ -8,18 +8,19 @@ export default function ItemCard({ item }: { item: CatalogItem }) {
 
     return (
         <Card data-testid="catalog-card">
-            <CardHeader>
+            <CardHeader className="flex flex-col gap-0">
                 <CardTitle className="text-lg">
                     {item.name}
                 </CardTitle>
+                <p className="text-sm text-muted-foreground">
+                        Ref: {item.code}
+                </p>
             </CardHeader>
             
             <CardContent>
-                <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground">
-                        Ref: {item.code}
-                    </p>
-                    <p className="text-xl font-bold text-main">
+                <div className="flex flex-col gap-2 ">
+
+                    <p className="text-xl font-bold text-main text-right">
                         {item.price}€
                     </p>
                 </div>

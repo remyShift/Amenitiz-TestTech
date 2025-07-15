@@ -28,7 +28,7 @@ describe('ItemCard', () => {
         render(<ItemCard item={item} />);
 
         expect(screen.getByTestId('catalog-card')).toBeInTheDocument();
-        expect(screen.getByText(item.code)).toBeInTheDocument();
+        expect(screen.getByText(`Ref: ${item.code}`)).toBeInTheDocument();
         expect(screen.getByText(item.name)).toBeInTheDocument();
         expect(screen.getByText(`${item.price}€`)).toBeInTheDocument();
     });

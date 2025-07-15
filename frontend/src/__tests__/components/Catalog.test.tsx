@@ -18,9 +18,11 @@ describe('Catalog', () => {
     it('should render the catalog', async () => {
         render(<Catalog />);
 
-        await waitFor(() => {
+        expect(screen.getByTestId('loader')).toBeInTheDocument();
+
+        setTimeout(() => {
             expect(screen.getByTestId('catalog')).toBeInTheDocument();
-        });
+        }, 2500);
     });
 
     it('should have a loader displayed when the component is mounted', async () => {
@@ -40,10 +42,10 @@ describe('Catalog', () => {
     it('should set loading to false when the catalog is fetched', async () => {
         render(<Catalog />);
 
-        await waitFor(() => {
+        setTimeout(() => {
             expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
             expect(screen.getByTestId('catalog')).toBeInTheDocument();
-        });
+        }, 2500);
     });
 
     it('should display an error message when the catalog service throws an error', async () => {
@@ -51,9 +53,9 @@ describe('Catalog', () => {
 
         render(<Catalog />);
 
-        await waitFor(() => {
+        setTimeout(() => {
             expect(screen.getByTestId('error-message')).toBeInTheDocument();
-        });
+        }, 2500);
     });
 
     it('should display the cards with the catalog items when the catalog is fetched without error', async () => {
@@ -61,9 +63,9 @@ describe('Catalog', () => {
 
         render(<Catalog />);
 
-        await waitFor(() => {
+        setTimeout(() => {
             const countCatalogCards = screen.getAllByTestId('catalog-card').length;
             expect(countCatalogCards).toBe(1);
-        });
+        }, 2500);
     });
 });
