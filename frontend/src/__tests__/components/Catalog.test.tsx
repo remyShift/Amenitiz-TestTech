@@ -37,4 +37,14 @@ describe('Catalog', () => {
             expect(screen.getByTestId('catalog')).toBeInTheDocument();
         });
     });
+
+    it('should display an error message when the catalog service throws an error', async () => {
+        mockGetCatalog.mockRejectedValue(new Error('Error'));
+
+        render(<Catalog />);
+
+        await waitFor(() => {
+            expect(screen.getByTestId('error')).toBeInTheDocument();
+        });
+    });
 });
