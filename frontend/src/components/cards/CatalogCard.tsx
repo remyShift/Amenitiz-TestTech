@@ -12,6 +12,7 @@ export default function CatalogCard({ item }: { item: CatalogItem }) {
             <p className="text-lg font-bold text-blue-600">
                 {item.price}€
             </p>
+            <button data-testid="add-button">Add to cart</button>
         </div>
     )
 }
