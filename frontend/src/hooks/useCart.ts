@@ -17,7 +17,7 @@ export const useCart = () => {
 		staleTime: Infinity,
 	});
 
-	const addItem = (item: CatalogItem) => {
+	const addItem = async (item: CatalogItem) => {
 		setItems((prevItems) => {
 			const existingItem = prevItems.find((i) => i.id === item.id);
 
@@ -33,7 +33,6 @@ export const useCart = () => {
 				return newItems;
 			}
 		});
-
 		refetchTotal();
 	};
 
