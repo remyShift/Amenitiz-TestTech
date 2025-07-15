@@ -64,4 +64,16 @@ describe('Cart', () => {
         expect(screen.getByText('11.23€')).toBeInTheDocument();
     });
 
+    it('should display a remove button for each item in the cart', () => {
+        vi.mocked(useCart).mockReturnValue({
+            items: [{ id: 1, code: 'GR1', name: 'Green Tea', price: 3.11, quantity: 2 }],
+            total: 3.11,
+            addItem: vi.fn(),
+            removeItem: vi.fn(),
+            computeOrderTotal: vi.fn()
+        });
+
+        render(<Cart />);
+        expect(screen.getAllByTestId('remove-button').length).toBe(2);
+    });
 });
