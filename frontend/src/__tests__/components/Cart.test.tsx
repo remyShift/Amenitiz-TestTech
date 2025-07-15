@@ -47,5 +47,7 @@ describe('Cart', () => {
 
         render(<Cart />);
         expect(screen.getByText('Coffee')).toBeInTheDocument();
+        expect(screen.getByText('1')).toBeInTheDocument();
+        expect(screen.getByText('11.23€')).toBeInTheDocument();
     });
 });
