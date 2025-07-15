@@ -20,6 +20,8 @@ export const useCart = () => {
 		const newItems = [...items, item];
 		setItems(newItems);
 		localStorage.setItem('cart', JSON.stringify(newItems));
+
+		refetchTotal();
 	};
 
 	const computeOrderTotal = async () => {
