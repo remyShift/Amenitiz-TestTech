@@ -3,16 +3,11 @@ import { Button } from './button'
 import { ShoppingCart } from 'lucide-react'
 import { Badge } from '../badge'
 import { useCart } from '@/hooks/useCart'
-import { useEffect } from 'react'
-import { useState } from 'react'
 
 export default function CartButton() {
     const { items } = useCart()
-    const [totalItems, setTotalItems] = useState(0)
-
-    useEffect(() => {
-        setTotalItems(items.reduce((sum, item) => sum + item.quantity, 0))
-    }, [items, totalItems])
+    
+    const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
 
     return (
         <SheetTrigger asChild>

@@ -1,14 +1,10 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { CatalogItem } from '@/types/Catalog';
-import type { CartItem } from '@/types/Cart';
 import CartService from '@/services/CartService';
+import { useCartContext } from '@/context/CartContext';
 
 export const useCart = () => {
-	const [items, setItems] = useState<CartItem[]>(() => {
-		const savedCart = localStorage.getItem('cart');
-		return savedCart ? JSON.parse(savedCart) : [];
-	});
+	const { items, setItems } = useCartContext();
 
 	const { data: total = 0, refetch: refetchTotal } = useQuery({
 		queryKey: ['cart-total'],

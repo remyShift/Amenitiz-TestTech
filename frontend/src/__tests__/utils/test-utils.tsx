@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, type RenderOptions, renderHook, type RenderHookOptions } from '@testing-library/react';
 import type { ReactElement, ReactNode } from 'react';
+import { CartProvider } from '@/context/CartContext';
 
 const createTestQueryClient = () => new QueryClient({
     defaultOptions: {
@@ -22,7 +23,9 @@ const AllTheProviders = ({ children }: { children: ReactNode }) => {
     const queryClient = createTestQueryClient();
     return (
         <QueryClientProvider client={queryClient}>
-            {children}
+            <CartProvider>
+                {children}
+            </CartProvider>
         </QueryClientProvider>
     );
 };
@@ -30,7 +33,7 @@ const AllTheProviders = ({ children }: { children: ReactNode }) => {
 const customRender = (ui: ReactElement, options?: RenderOptions) =>
     render(ui, { wrapper: AllTheProviders, ...options });
 
-    const customRenderHook = <Result, Props>(
+const customRenderHook = <Result, Props>(
     hook: (initialProps: Props) => Result,
     options?: RenderHookOptions<Props>
 ) => renderHook(hook, { wrapper: AllTheProviders, ...options });
