@@ -1,7 +1,8 @@
 class CatalogController < ApplicationController
   def index
-    products = ProductsCatalog.all.map do |product|
+    products = ProductsCatalog.all.map.with_index do |product, index|
       {
+        id: index + 1,
         code: product[:code],
         name: product[:name],
         price: product[:price]

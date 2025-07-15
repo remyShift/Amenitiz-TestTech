@@ -9,7 +9,7 @@ class CatalogService {
 				throw new Error('Failed to fetch catalog');
 			}
 
-			return response.json() as Promise<Catalog>;
+			return response.json();
 		});
 	}
 }

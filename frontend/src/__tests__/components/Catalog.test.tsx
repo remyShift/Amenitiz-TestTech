@@ -49,12 +49,13 @@ describe('Catalog', () => {
     });
 
     it('should display the catalog when the catalog is fetched without error', async () => {
-        mockGetCatalog.mockResolvedValue([{ id: 1, name: 'Coffee', price: 10 }]);
+        mockGetCatalog.mockResolvedValue([{ id: 1, code: '123', name: 'Coffee', price: 10 }]);
 
         render(<Catalog />);
 
         await waitFor(() => {
             const countCatalogItems = screen.getAllByTestId('catalog-item').length;
+            expect(screen.getByText('123 | Coffee | 10')).toBeInTheDocument();
             expect(countCatalogItems).toBe(1);
         });
     });
