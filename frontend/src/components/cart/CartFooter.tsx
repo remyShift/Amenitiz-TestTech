@@ -1,12 +1,16 @@
 import { useCart } from "@/hooks/useCart";
+import { Button } from "../ui/buttons/button";
 
 export default function CartFooter() {
     const { total } = useCart();
     
     return (
-        <div data-testid="total-price" className="flex justify-between items-center text-2xl font-bold border-t-2 border-border pt-4">
-            <p>Total : </p> 
-            <p>{total}€</p>
+        <div data-testid="total-price" className="border-t-2 border-border pt-4 flex flex-col gap-4">
+            <div className="flex justify-between items-center text-2xl font-bold">
+                <p>Total : </p>
+                <p>{total}€</p>
+            </div>
+            <Button className="rounded-md" onClick={() => alert('Not implemented yet ...')}>Checkout</Button>
         </div>
     )
 }
