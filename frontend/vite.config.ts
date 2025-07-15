@@ -13,6 +13,10 @@ export default defineConfig({
 			jsxRuntime: 'automatic',
 		}),
 	],
+	server: {
+		host: '0.0.0.0',
+		port: 5173,
+	},
 	test: {
 		environment: 'jsdom',
 		globals: true,

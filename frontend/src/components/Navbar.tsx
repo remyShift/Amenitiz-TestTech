@@ -7,7 +7,7 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
-        <nav className="w-full flex justify-between items-center bg-white border-b-2 border-border shadow-shadow p-6">
+        <nav className="w-full flex justify-between items-center bg-white border-b-2 border-border shadow-shadow md:p-6 p-4">
             <h1 className="text-2xl font-bold text-foreground">
                 Amenitiz x Rémy Cassagne
             </h1>
