@@ -2,12 +2,12 @@ import { renderHook } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { useCatalog } from '@/hooks/useCatalog';
 
-const mockFetchCatalog = vi.hoisted(() => vi.fn());
+const mockGetCatalog = vi.hoisted(() => vi.fn().mockResolvedValue([]));
 
-vi.mock('@/services/CatalogService', () => ({
-    CatalogService: vi.fn().mockImplementation(() => ({
-        fetchCatalog: mockFetchCatalog,
-    })),
+vi.mock('../../services/CatalogService', () => ({
+    default: {
+        getCatalog: mockGetCatalog,
+    },
 }));
 
 describe('useCatalog', () => {
@@ -20,7 +20,7 @@ describe('useCatalog', () => {
         const { result } = renderHook(() => useCatalog());
 
         result.current.fetchCatalog();
-        expect(mockFetchCatalog).toHaveBeenCalledTimes(1);
+        expect(mockGetCatalog).toHaveBeenCalledTimes(1);
     });
   }
 );
