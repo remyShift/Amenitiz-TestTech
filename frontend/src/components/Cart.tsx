@@ -5,7 +5,13 @@ export default function Cart() {
 
     return (
         <div data-testid="cart">
-            {items.length === 0 ? 'Empty cart' : 'Cart'}
+            {items.length === 0 && <p>Empty cart</p>}
+            {items.map((item) => (
+                <div key={item.id}>
+                    <h1>{item.name}</h1>
+                    <p>{item.price}</p>
+                </div>
+            ))}
         </div>
     )
 }

@@ -1,30 +1,49 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@/__tests__/utils/test-utils";
 import Cart from "@/components/Cart";
+import { useCart } from "@/hooks/useCart";
+
+vi.mock('@/hooks/useCart');
 
 describe('Cart', () => {
-    it('should render the cart', () => {
-        render(<Cart />);
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
 
+    it('should render the cart', () => {
+        vi.mocked(useCart).mockReturnValue({
+            items: [],
+            total: 0,
+            addItem: vi.fn(),
+            removeItem: vi.fn(),
+            computeOrderTotal: vi.fn()
+        });
+
+        render(<Cart />);
         expect(screen.getByTestId('cart')).toBeInTheDocument();
     });
 
     it('should display "Panier vide" when cart is empty', () => {
-        vi.mock('@/hooks/useCart', () => ({
-            useCart: () => ({ items: [], total: 0 })
-        }));
+        vi.mocked(useCart).mockReturnValue({
+            items: [],
+            total: 0,
+            addItem: vi.fn(),
+            removeItem: vi.fn(),
+            computeOrderTotal: vi.fn()
+        });
 
         render(<Cart />);
         expect(screen.getByText('Empty cart')).toBeInTheDocument();
     });
 
     it('should display cart item name when cart has one item', () => {
-        vi.mock('@/hooks/useCart', () => ({
-            useCart: () => ({ 
-                items: [{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23 }],
-                total: 0 
-            })
-        }));
+        vi.mocked(useCart).mockReturnValue({
+            items: [{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23 }],
+            total: 0,
+            addItem: vi.fn(),
+            removeItem: vi.fn(),
+            computeOrderTotal: vi.fn()
+        });
 
         render(<Cart />);
         expect(screen.getByText('Coffee')).toBeInTheDocument();
