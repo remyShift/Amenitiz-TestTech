@@ -47,4 +47,15 @@ describe('Catalog', () => {
             expect(screen.getByTestId('error')).toBeInTheDocument();
         });
     });
+
+    it('should display the catalog when the catalog is fetched without error', async () => {
+        mockGetCatalog.mockResolvedValue([{ id: 1, name: 'Coffee', price: 10 }]);
+
+        render(<Catalog />);
+
+        await waitFor(() => {
+            const countCatalogItems = screen.getAllByTestId('catalog-item').length;
+            expect(countCatalogItems).toBe(1);
+        });
+    });
 });
