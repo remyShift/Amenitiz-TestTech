@@ -1,9 +1,9 @@
-import type { CartItem } from '@/types/Cart';
+import type { CartItem, CartTotalResponse } from '@/types/Cart';
 
 class CartService {
 	private baseUrl = 'http://localhost:3000';
 
-	async calculateOrderTotal(items: CartItem[]): Promise<number> {
+	async calculateOrderTotal(items: CartItem[]): Promise<CartTotalResponse> {
 		const itemsToSend = items.map((item) => ({
 			code: item.code,
 			quantity: item.quantity,
@@ -22,7 +22,7 @@ class CartService {
 				}
 				return response.json();
 			})
-			.then((data) => data.total)
+			.then((data) => data)
 			.catch((error) => {
 				console.error('Error calculating total:', error);
 				throw error;

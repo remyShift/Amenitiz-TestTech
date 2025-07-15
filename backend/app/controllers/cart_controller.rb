@@ -1,6 +1,6 @@
 class CartController < ApplicationController
     def total
-        unless params[:items].present? && params[:items].is_a?(Array)
+        unless params[:items].is_a?(Array)
             render json: { error: 'Items are required' }, status: :bad_request
             return
         end
@@ -13,6 +13,12 @@ class CartController < ApplicationController
             end
             item[:quantity].times { cart.add(item[:code]) }
         end
-        render json: { total: cart.total }
+        
+        render json: { 
+            total: cart.total,
+            original_total: cart.original_total,
+            total_savings: cart.total_savings,
+            discounts_applied: cart.discounts_applied
+        }
     end
 end
