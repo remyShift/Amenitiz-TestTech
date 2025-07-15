@@ -2,7 +2,6 @@ import type { CatalogItem } from "@/types/Catalog";
 import { useCart } from "@/hooks/useCart";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/buttons/button";
-import { toast } from "sonner";
 
 export default function ItemCard({ item }: { item: CatalogItem }) {
     const { addItem } = useCart();
@@ -27,15 +26,7 @@ export default function ItemCard({ item }: { item: CatalogItem }) {
             <CardFooter>
                 <Button
                     data-testid="add-button" 
-                    onClick={() => {
-                        toast.promise(addItem(item), {
-                            loading: "Adding item to cart...",
-                            success: () => {
-                                return `Item added to cart`
-                            },
-                            error: "Error adding item to cart",
-                        })
-                    }}
+                    onClick={() =>  addItem(item)}
                     size="lg"
                 >
                     Add to cart

@@ -12,7 +12,7 @@ export default function Catalog() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsMinimumLoadingTime(false);
-        }, 2500);
+        }, 1000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -22,7 +22,7 @@ export default function Catalog() {
             const interval = setInterval(() => {
                 setProgressValue((prev) => {
                     if (prev >= 100) return 0;
-                    return prev + 2;
+                    return prev + 5;
                 });
             }, 50);
 

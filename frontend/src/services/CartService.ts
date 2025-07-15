@@ -14,7 +14,7 @@ class CartService {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(itemsToSend),
+			body: JSON.stringify({ items: itemsToSend }),
 		})
 			.then((response) => {
 				if (!response.ok) {
