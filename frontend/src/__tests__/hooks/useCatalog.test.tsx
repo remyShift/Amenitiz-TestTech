@@ -43,7 +43,7 @@ describe('useCatalog', () => {
         const { result } = renderHook(() => useCatalog());
 
         await waitFor(() => {
-            expect(result.current.error).toBeTruthy();
+            expect(result.current.error).toBe(error);
             expect(result.current.isLoading).toBe(false);
         });
     });
