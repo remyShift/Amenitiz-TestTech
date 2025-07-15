@@ -1,8 +1,27 @@
 import ItemCard from "@/components/cards/ItemCard";
-import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { fireEvent, screen } from "@testing-library/react";
+import { render } from "@/__tests__/utils/test-utils";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { useCart } from "@/hooks/useCart";
+
+vi.mock('@/hooks/useCart', () => ({
+    useCart: vi.fn(),
+}));
 
 describe('CatalogCard', () => {
+    const mockAddItem = vi.fn();
+    
+    beforeEach(() => {
+        vi.clearAllMocks();
+        vi.mocked(useCart).mockReturnValue({
+            addItem: mockAddItem,
+            removeItem: vi.fn(),
+            items: [],
+            total: 0,
+            computeOrderTotal: vi.fn(),
+        });
+    });
+
     it('should display the card with the item data when the item is provided', () => {
         const item = { id: 1, code: '123', name: 'Coffee', price: 10 };
 
@@ -24,12 +43,11 @@ describe('CatalogCard', () => {
 
     it('should call the addItem function when the button is clicked', () => {
         const item = { id: 1, code: '123', name: 'Coffee', price: 10 };
-        const addItem = vi.fn();
 
         render(<ItemCard item={item} />);
 
         fireEvent.click(screen.getByTestId('add-button'));
 
-        expect(addItem).toHaveBeenCalledWith(item);
+        expect(mockAddItem).toHaveBeenCalledWith(item);
     });
 });
