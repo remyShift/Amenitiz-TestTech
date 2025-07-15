@@ -9,6 +9,9 @@ export default {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
 			},
+			boxShadow: {
+				shadow: 'var(--shadow)',
+			},
 			colors: {
 				background: 'var(--background)',
 				'secondary-background': 'var(--secondary-background)',

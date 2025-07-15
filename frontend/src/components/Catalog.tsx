@@ -39,10 +39,12 @@ export default function Catalog() {
     }
 
     if (error) {
-        return <div data-testid="error-message">
-            <p>Error: {error.message}</p>
-            <p>Please try again later.</p>
-        </div>;
+        return (
+            <div data-testid="error-message">
+                <p>Error: {error.message}</p>
+                <p>Please try again later.</p>
+            </div>
+        );
     }
 
     return (
