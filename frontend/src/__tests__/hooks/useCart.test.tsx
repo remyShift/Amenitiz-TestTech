@@ -29,7 +29,7 @@ describe('useCart', () => {
         expect(result.current.items).toEqual([itemToAdd]);
     });
 
-    it('should add multiple items to the cart when the addItem function is called multiple times', () => {
+    it('should add multiple items to the cart when the addItem function is called multiple times but items should be unique and aggregated by quantity', () => {
         const { result } = renderHook(() => useCart());
 
         act(() => {
@@ -44,7 +44,7 @@ describe('useCart', () => {
             result.current.addItem(itemToAdd);
         });
 
-        expect(result.current.items).toEqual([itemToAdd, itemToAdd, itemToAdd]);
+        expect(result.current.items).toEqual([{ ...itemToAdd, quantity: 3 }]);
     });
 
     it('should calculate the total price of the cart with the computeOrderTotal function', async () => {
