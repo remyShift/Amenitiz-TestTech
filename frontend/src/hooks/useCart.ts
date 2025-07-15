@@ -5,7 +5,7 @@ export const useCart = () => {
 	const [items, setItems] = useState<CatalogItem[]>([]);
 
 	const addItem = (item: CatalogItem) => {
-		setItems([...items, item]);
+		setItems((prevItems) => [...prevItems, item]);
 	};
 
 	return { items, addItem };
