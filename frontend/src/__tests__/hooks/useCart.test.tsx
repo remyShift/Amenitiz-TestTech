@@ -75,4 +75,20 @@ describe('useCart', () => {
             expect(result.current.total).toEqual(10);
         });
     });
+
+    it('should remove an item from the cart when the removeItem function is called', () => {
+        const { result } = renderHook(() => useCart());
+
+        act(() => {
+            result.current.addItem(itemToAdd);
+        });
+
+        expect(result.current.items).toEqual([itemToAdd]);
+
+        act(() => {
+            result.current.removeItem(itemToAdd);
+        });
+
+        expect(result.current.items).toEqual([]);
+    });
 });
