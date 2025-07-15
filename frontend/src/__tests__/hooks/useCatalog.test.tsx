@@ -38,6 +38,6 @@ describe('useCatalog', () => {
 
         await act(async () => result.current.fetchCatalog());
 
-        expect(result.current.error).toBe(true);
+        expect(result.current.error).toBe('An error occurred while fetching the catalog : Error');
     });
 });
