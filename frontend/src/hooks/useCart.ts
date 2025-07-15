@@ -17,16 +17,26 @@ export const useCart = () => {
 	});
 
 	const addItem = (item: CatalogItem) => {
-		const newItems = [...items, item];
-		setItems(newItems);
-		localStorage.setItem('cart', JSON.stringify(newItems));
+		setItems((prevItems) => {
+			const newItems = [...prevItems, item];
+			localStorage.setItem('cart', JSON.stringify(newItems));
+			return newItems;
+		});
 
 		refetchTotal();
+	};
+
+	const removeItem = (item: CatalogItem) => {
+		setItems((prevItems) => {
+			const newItems = prevItems.filter((i) => i.id !== item.id);
+			localStorage.setItem('cart', JSON.stringify(newItems));
+			return newItems;
+		});
 	};
 
 	const computeOrderTotal = async () => {
 		await refetchTotal();
 	};
 
-	return { items, addItem, total, computeOrderTotal };
+	return { items, addItem, removeItem, total, computeOrderTotal };
 };
