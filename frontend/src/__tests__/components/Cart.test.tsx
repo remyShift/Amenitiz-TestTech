@@ -14,6 +14,9 @@ describe('Cart', () => {
         vi.mocked(useCart).mockReturnValue({
             items: [],
             total: 0,
+            originalTotal: 0,
+            totalSavings: 0,
+            discountsApplied: [],
             addItem: vi.fn(),
             removeItem: vi.fn(),
             computeOrderTotal: vi.fn()
@@ -27,6 +30,9 @@ describe('Cart', () => {
         vi.mocked(useCart).mockReturnValue({
             items: [],
             total: 0,
+            originalTotal: 0,
+            totalSavings: 0,
+            discountsApplied: [],
             addItem: vi.fn(),
             removeItem: vi.fn(),
             computeOrderTotal: vi.fn()
@@ -40,7 +46,10 @@ describe('Cart', () => {
     it('should display cart item name when cart has one item', () => {
         vi.mocked(useCart).mockReturnValue({
             items: [{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23, quantity: 1 }],
-            total: 0,
+            total: 11.23,
+            originalTotal: 11.23,
+            totalSavings: 0,
+            discountsApplied: [],
             addItem: vi.fn(),
             removeItem: vi.fn(),
             computeOrderTotal: vi.fn()
@@ -50,13 +59,16 @@ describe('Cart', () => {
         expect(screen.getByTestId('cart')).toBeInTheDocument();
         expect(screen.getByText('Coffee')).toBeInTheDocument();
         expect(screen.getByText('1')).toBeInTheDocument();
-        expect(screen.getByText('11.23€')).toBeInTheDocument();
+        expect(screen.getAllByText('11.23€')[0]).toBeInTheDocument();
     });
 
     it('should display total price of the cart when cart has one item', () => {
         vi.mocked(useCart).mockReturnValue({
             items: [{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23, quantity: 1 }],
             total: 11.23,
+            originalTotal: 11.23,
+            totalSavings: 0,
+            discountsApplied: [],
             addItem: vi.fn(),
             removeItem: vi.fn(),
             computeOrderTotal: vi.fn()
@@ -64,13 +76,17 @@ describe('Cart', () => {
 
         render(<Cart />);
         expect(screen.getByTestId('total-price')).toBeInTheDocument();
-        expect(screen.getByTestId('total-price').textContent).toBe('Total : 11.23€');
+        expect(screen.getByText('Total :')).toBeInTheDocument();
+        expect(screen.getAllByText('11.23€')[1]).toBeInTheDocument();
     });
 
     it('should display a remove button for each item in the cart', () => {
         vi.mocked(useCart).mockReturnValue({
             items: [{ id: 1, code: 'GR1', name: 'Green Tea', price: 3.11, quantity: 2 }],
             total: 3.11,
+            originalTotal: 3.11,
+            totalSavings: 0,
+            discountsApplied: [],
             addItem: vi.fn(),
             removeItem: vi.fn(),
             computeOrderTotal: vi.fn()
@@ -86,7 +102,10 @@ describe('Cart', () => {
         
         mockUseCart.mockReturnValue({
             items: [{ id: 1, code: 'GR1', name: 'Green Tea', price: 3.11, quantity: 2 }, { id: 2, code: 'SR1', name: 'Strawberries', price: 5, quantity: 3 }],
-            total: 3.11,
+            total: 18.11,
+            originalTotal: 18.11,
+            totalSavings: 0,
+            discountsApplied: [],
             addItem: vi.fn(),
             removeItem: removeItem,
             computeOrderTotal: vi.fn()
@@ -101,7 +120,10 @@ describe('Cart', () => {
 
         mockUseCart.mockReturnValue({
             items: [{ id: 1, code: 'GR1', name: 'Green Tea', price: 3.11, quantity: 1 }, { id: 2, code: 'SR1', name: 'Strawberries', price: 5, quantity: 3 }],
-            total: 3.11,
+            total: 18.11,
+            originalTotal: 18.11,
+            totalSavings: 0,
+            discountsApplied: [],
             addItem: vi.fn(),
             removeItem: removeItem,
             computeOrderTotal: vi.fn()

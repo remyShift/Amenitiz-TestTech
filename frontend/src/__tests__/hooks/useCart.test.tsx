@@ -6,17 +6,25 @@ import CartService from '@/services/CartService';
 
 vi.mock('@/services/CartService', () => ({
     default: {
-        calculateOrderTotal: vi.fn().mockResolvedValue(5),
+        calculateOrderTotal: vi.fn(),
     },
 }));
 
 describe('useCart', () => {
     let itemToAdd: CatalogItem;
+    const mockCalculateOrderTotal = vi.mocked(CartService.calculateOrderTotal);
 
     beforeEach(() => {
         vi.clearAllMocks();
         localStorage.clear();
         itemToAdd = { id: 1, code: 'SR1', name: 'Strawberries', price: 5 };
+        
+        mockCalculateOrderTotal.mockResolvedValue({
+            total: 5,
+            original_total: 5,
+            total_savings: 0,
+            discounts_applied: []
+        });
     });
 
     it('should add an item to the cart when the addItem function is called', () => {
@@ -128,8 +136,12 @@ describe('useCart', () => {
             expect(result.current.total).toEqual(itemToAdd.price);
         });
 
-        const mockCalculateOrderTotal = vi.mocked(CartService.calculateOrderTotal);
-        mockCalculateOrderTotal.mockResolvedValue(0);
+        mockCalculateOrderTotal.mockResolvedValue({
+            total: 0,
+            original_total: 0,
+            total_savings: 0,
+            discounts_applied: []
+        });
 
         act(() => {
             result.current.removeItem(itemToAdd);
@@ -138,6 +150,5 @@ describe('useCart', () => {
         await waitFor(() => {
             expect(result.current.total).toEqual(0);
         });
-
     });
 });
