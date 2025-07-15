@@ -19,7 +19,8 @@ describe('useCatalog', () => {
     it('should call the catalog service to fetch the catalog in the fetchCatalog function', async () => {
         const { result } = renderHook(() => useCatalog());
 
-        result.current.fetchCatalog();
+        await act(async () => result.current.fetchCatalog());
+
         expect(mockGetCatalog).toHaveBeenCalledTimes(1);
     });
 
@@ -42,12 +43,12 @@ describe('useCatalog', () => {
     });
 
     it('should set the catalog when the catalog is fetched without error', async () => {
-        mockGetCatalog.mockResolvedValue([]);
+        mockGetCatalog.mockResolvedValue([{ id: 1, name: 'Coffee', price: 10 }]);
 
         const { result } = renderHook(() => useCatalog());
 
         await act(async () => result.current.fetchCatalog());
 
-        expect(result.current.catalog).toEqual([]);
+        expect(result.current.catalog).toEqual([{ id: 1, name: 'Coffee', price: 10 }]);
     });
 });
