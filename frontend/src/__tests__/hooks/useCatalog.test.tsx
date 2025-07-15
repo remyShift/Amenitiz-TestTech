@@ -32,7 +32,7 @@ describe('useCatalog', () => {
         expect(result.current.loading).toBe(false);
     });
 
-    it('should set an error when the catalog service throws an error', async () => {
+    it('should set an error when the catalog service throws an error and loading to false', async () => {
         mockGetCatalog.mockRejectedValue(new Error('Error'));
 
         const { result } = renderHook(() => useCatalog());
@@ -40,6 +40,7 @@ describe('useCatalog', () => {
         await act(async () => result.current.fetchCatalog());
 
         expect(result.current.error).toBe('An error occurred while fetching the catalog : Error');
+        expect(result.current.loading).toBe(false);
     });
 
     it('should set the catalog when the catalog is fetched without error', async () => {
