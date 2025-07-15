@@ -1,10 +1,21 @@
 import { useCart } from "@/hooks/useCart";
 import { act, renderHook } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { CatalogItem } from "@/types/Catalog";
+
+vi.mock('@/services/CartService', () => ({
+    calculateTotal: vi.fn().mockReturnValue(10),
+}));
 
 describe('useCart', () => {
+    let itemToAdd: CatalogItem;
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+        itemToAdd = { id: 1, code: '123', name: 'Coffee', price: 10 };
+    });
+
     it('should add an item to the cart when the addItem function is called', () => {
-        const itemToAdd = { id: 1, code: '123', name: 'Coffee', price: 10 };
         const { result } = renderHook(() => useCart());
 
         act(() => {
@@ -15,7 +26,6 @@ describe('useCart', () => {
     });
 
     it('should add multiple items to the cart when the addItem function is called multiple times', () => {
-        const itemToAdd = { id: 1, code: '123', name: 'Coffee', price: 10 };
         const { result } = renderHook(() => useCart());
 
         act(() => {
@@ -25,5 +35,19 @@ describe('useCart', () => {
         });
 
         expect(result.current.items).toEqual([itemToAdd, itemToAdd, itemToAdd]);
+    });
+
+    it('should calculate the total price of the cart with the computeOrderTotal function', () => {
+        const { result } = renderHook(() => useCart());
+
+        act(() => {
+            result.current.addItem(itemToAdd);
+        });
+
+        act(() => {
+            result.current.computeOrderTotal();
+        });
+
+        expect(result.current.total).toEqual(10);
     });
 });
