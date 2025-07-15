@@ -20,6 +20,7 @@ export default {
 				main: 'var(--main)',
 				border: 'var(--border)',
 				ring: 'var(--ring)',
+				overlay: 'var(--overlay)',
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))',
