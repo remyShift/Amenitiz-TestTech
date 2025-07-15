@@ -1,5 +1,5 @@
 import { SheetContent, SheetHeader, SheetTitle } from "./sheet";
-import Cart from "@/components/Cart";
+import Cart from "@/components/cart/Cart";
 
 export default function CartDrawer() {
     return (

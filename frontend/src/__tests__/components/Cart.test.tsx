@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { fireEvent, render, screen } from "@/__tests__/utils/test-utils";
-import Cart from "@/components/Cart";
+import Cart from "@/components/cart/Cart";
 import { useCart } from "@/hooks/useCart";
 
 vi.mock('@/hooks/useCart');
@@ -20,7 +20,7 @@ describe('Cart', () => {
         });
 
         render(<Cart />);
-        expect(screen.getByTestId('cart')).toBeInTheDocument();
+        expect(screen.getByTestId('empty-cart')).toBeInTheDocument();
     });
 
     it('should display "Empty cart" when cart is empty', () => {
@@ -33,6 +33,7 @@ describe('Cart', () => {
         });
 
         render(<Cart />);
+        expect(screen.getByTestId('empty-cart')).toBeInTheDocument();
         expect(screen.getByText('Empty cart, add some items to your cart ...')).toBeInTheDocument();
     });
 
@@ -46,6 +47,7 @@ describe('Cart', () => {
         });
 
         render(<Cart />);
+        expect(screen.getByTestId('cart')).toBeInTheDocument();
         expect(screen.getByText('Coffee')).toBeInTheDocument();
         expect(screen.getByText('1')).toBeInTheDocument();
         expect(screen.getByText('11.23€')).toBeInTheDocument();
