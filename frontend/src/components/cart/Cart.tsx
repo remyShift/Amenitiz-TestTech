@@ -7,7 +7,7 @@ export default function Cart() {
     const { items } = useCart();
 
     if (items.length === 0 || !items) {
-        return <p className="text-xl" data-testid="empty-cart">Empty cart, add some items to your cart ...</p>
+        return <p className="text-lg" data-testid="empty-cart">Empty cart, add some items to your cart ...</p>
     }
 
     return (

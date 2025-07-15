@@ -11,7 +11,7 @@ export default function CartContent() {
     return (
         <>
             {items.map((item) => (
-                <div key={item.id} className="flex justify-between items-center">
+                <div key={item.id} className="flex justify-between items-center border-b-2 border-border pb-4">
                     <h1>{item.name}</h1>
                     <p>{item.price}€</p>
                     <p>{item.quantity}</p>
