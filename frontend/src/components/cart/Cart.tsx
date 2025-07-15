@@ -11,7 +11,7 @@ export default function Cart() {
     }
 
     return (
-        <div data-testid="cart" className="h-full flex flex-col justify-between pb-12">
+        <div data-testid="cart" className="h-full flex flex-col justify-between pb-12 overflow-y-auto">
             <div className="flex flex-col gap-4">
                 <CartHeader />
                 <CartContent /> 

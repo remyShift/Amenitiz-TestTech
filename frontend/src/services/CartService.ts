@@ -1,7 +1,7 @@
 import type { CartItem, CartTotalResponse } from '@/types/Cart';
 
 class CartService {
-	private baseUrl = process.env.BASE_API_URL;
+	private baseUrl = 'http://localhost:3000';
 
 	async calculateOrderTotal(items: CartItem[]): Promise<CartTotalResponse> {
 		const itemsToSend = items.map((item) => ({

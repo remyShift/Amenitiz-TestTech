@@ -4,7 +4,7 @@ export default function DiscountInfo() {
     const { discountsApplied, totalSavings, originalTotal } = useCart();
 
     return (
-        <>
+        <div className="flex flex-col gap-1">
             {discountsApplied.length > 0 && (
                 <div className="flex flex-col gap-2">
                     <h3 className="font-semibold text-green-600">Discounts applied :</h3>
@@ -39,6 +39,6 @@ export default function DiscountInfo() {
                     <p className="line-through">{originalTotal.toFixed(2)}€</p>
                 </div>
             )}
-        </>
+        </div>
     )
 }
