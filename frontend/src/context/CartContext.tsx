@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import type { CartItem } from '@/types/Cart';
 
 interface CartContextType {
@@ -12,13 +12,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [items, setItems] = useState<CartItem[]>(() => {
         const savedCart = localStorage.getItem('cart');
         const parsedCart = savedCart ? JSON.parse(savedCart) : [];
-        console.log('🏪 CartProvider - Initial items from localStorage:', parsedCart);
         return parsedCart;
     });
-
-    useEffect(() => {
-        console.log('🔄 CartProvider - Items changed:', items);
-    }, [items]);
 
     return (
         <CartContext.Provider value={{ items, setItems }}>
