@@ -13,4 +13,17 @@ describe('useCart', () => {
 
         expect(result.current.items).toEqual([itemToAdd]);
     });
+
+    it('should add multiple items to the cart when the addItem function is called multiple times', () => {
+        const itemToAdd = { id: 1, code: '123', name: 'Coffee', price: 10 };
+        const { result } = renderHook(() => useCart());
+
+        act(() => {
+            result.current.addItem(itemToAdd);
+            result.current.addItem(itemToAdd);
+            result.current.addItem(itemToAdd);
+        });
+
+        expect(result.current.items).toEqual([itemToAdd, itemToAdd, itemToAdd]);
+    });
 });
