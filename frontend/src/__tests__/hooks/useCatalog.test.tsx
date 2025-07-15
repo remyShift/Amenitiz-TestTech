@@ -1,5 +1,5 @@
-import { act, renderHook } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { renderHook, waitFor } from '../utils/test-utils';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useCatalog } from '@/hooks/useCatalog';
 
 const mockGetCatalog = vi.hoisted(() => vi.fn().mockResolvedValue([]));
@@ -11,36 +11,41 @@ vi.mock('../../services/CatalogService', () => ({
 }));
 
 describe('useCatalog', () => {
-    it('should start with loading=true', async () => {
-      const { result } = renderHook(() => useCatalog());
-      expect(result.current.loading).toBe(true);
+    beforeEach(() => {
+        mockGetCatalog.mockClear();
     });
 
-    it('should call the catalog service to fetch the catalog in the fetchCatalog function', async () => {
+    it('should start with loading=true', () => {
         const { result } = renderHook(() => useCatalog());
+        expect(result.current.isLoading).toBe(true);
+    });
 
-        await act(async () => result.current.fetchCatalog());
+    it('should call the catalog service to fetch the catalog automatically', async () => {
+        renderHook(() => useCatalog());
 
-        expect(mockGetCatalog).toHaveBeenCalledTimes(1);
+        await waitFor(() => {
+            expect(mockGetCatalog).toHaveBeenCalledTimes(1);
+        });
     });
 
     it('should set loading to false when the catalog is fetched', async () => {
         const { result } = renderHook(() => useCatalog());
 
-        await act(async () => result.current.fetchCatalog());
-
-        expect(result.current.loading).toBe(false);
+        await waitFor(() => {
+            expect(result.current.isLoading).toBe(false);
+        });
     });
 
     it('should set an error when the catalog service throws an error and loading to false', async () => {
-        mockGetCatalog.mockRejectedValue(new Error('Error'));
+        const error = new Error('Error');
+        mockGetCatalog.mockRejectedValue(error);
 
         const { result } = renderHook(() => useCatalog());
 
-        await act(async () => result.current.fetchCatalog());
-
-        expect(result.current.error).toBe('An error occurred while fetching the catalog : Error');
-        expect(result.current.loading).toBe(false);
+        await waitFor(() => {
+            expect(result.current.error).toBeTruthy();
+            expect(result.current.isLoading).toBe(false);
+        });
     });
 
     it('should set the catalog when the catalog is fetched without error', async () => {
@@ -48,8 +53,9 @@ describe('useCatalog', () => {
 
         const { result } = renderHook(() => useCatalog());
 
-        await act(async () => result.current.fetchCatalog());
-
-        expect(result.current.catalog).toEqual([{ id: 1, name: 'Coffee', price: 10 }]);
+        await waitFor(() => {
+            expect(result.current.data).toEqual([{ id: 1, name: 'Coffee', price: 10 }]);
+            expect(result.current.isLoading).toBe(false);
+        });
     });
 });

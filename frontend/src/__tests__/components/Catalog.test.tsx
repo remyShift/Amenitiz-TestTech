@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '../utils/test-utils';
 import Catalog from '@/components/Catalog';
 
 const mockGetCatalog = vi.hoisted(() => vi.fn().mockResolvedValue([]));
@@ -15,23 +15,26 @@ describe('Catalog', () => {
         mockGetCatalog.mockClear();
     });
 
-    it('should render the catalog', () => {
+    it('should render the catalog', async () => {
         render(<Catalog />);
 
-        expect(screen.getByTestId('catalog')).toBeDefined();
+        await waitFor(() => {
+            expect(screen.getByTestId('catalog')).toBeInTheDocument();
+        });
     });
 
     it('should call the fetchCatalog function when the component is mounted and set loading to false when the catalog is fetched', async () => {
         render(<Catalog />);
 
-        expect(screen.getByTestId('loading')).toBeDefined();
+        expect(screen.getByTestId('loading')).toBeInTheDocument();
 
         await waitFor(() => {
             expect(mockGetCatalog).toHaveBeenCalledTimes(1);
         });
 
         await waitFor(() => {
-            expect(screen.queryByTestId('loading')).toBeNull();
+            expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
+            expect(screen.getByTestId('catalog')).toBeInTheDocument();
         });
     });
 });
