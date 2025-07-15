@@ -33,7 +33,7 @@ describe('Cart', () => {
         });
 
         render(<Cart />);
-        expect(screen.getByText('Empty cart')).toBeInTheDocument();
+        expect(screen.getByText('Empty cart, add some items to your cart ...')).toBeInTheDocument();
     });
 
     it('should display cart item name when cart has one item', () => {
@@ -62,7 +62,7 @@ describe('Cart', () => {
 
         render(<Cart />);
         expect(screen.getByTestId('total-price')).toBeInTheDocument();
-        expect(screen.getByTestId('total-price').textContent).toBe('11.23€');
+        expect(screen.getByTestId('total-price').textContent).toBe('Total : 11.23€');
     });
 
     it('should display a remove button for each item in the cart', () => {

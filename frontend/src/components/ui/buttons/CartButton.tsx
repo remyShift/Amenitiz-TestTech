@@ -10,7 +10,7 @@ export default function CartButton() {
     const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
 
     return (
-        <SheetTrigger asChild>
+        <SheetTrigger>
             <Button variant="neutral" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
                 {totalItems > 0 && (

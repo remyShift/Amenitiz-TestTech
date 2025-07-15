@@ -3,13 +3,12 @@ import Cart from "@/components/Cart";
 
 export default function CartDrawer() {
     return (
-        <SheetContent side="right">
+        <SheetContent side="right" className="flex-1 px-4">
             <SheetHeader>
                 <SheetTitle>Cart</SheetTitle>
             </SheetHeader>
-            <div className="mt-6">
-                <Cart />
-            </div>
+
+            <Cart />
         </SheetContent>
     )
 }
