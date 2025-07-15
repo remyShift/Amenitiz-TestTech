@@ -1,4 +1,4 @@
-import ItemCard from "@/components/cards/ItemCard";
+import ItemCard from "@/components/ItemCard";
 import { fireEvent, screen } from "@testing-library/react";
 import { render } from "@/__tests__/utils/test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";

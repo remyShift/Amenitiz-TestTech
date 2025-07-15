@@ -1,6 +1,6 @@
 import { useCatalog } from "@/hooks/useCatalog";
 import type { CatalogItem } from "@/types/Catalog";
-import ItemCard from "@/components/cards/ItemCard";
+import ItemCard from "@/components/ItemCard";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 

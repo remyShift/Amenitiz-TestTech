@@ -1,10 +1,14 @@
 import Catalog from '@/components/Catalog';
+import Navbar from '@/components/Navbar';
 import { Toaster } from 'sonner';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center">
-      <Catalog />
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <div className="flex items-center justify-center p-8">
+        <Catalog />
+      </div>
       <Toaster />
     </div>
   )

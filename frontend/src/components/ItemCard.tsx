@@ -1,7 +1,7 @@
 import type { CatalogItem } from "@/types/Catalog";
 import { useCart } from "@/hooks/useCart";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/buttons/button";
 import { toast } from "sonner";
 
 export default function ItemCard({ item }: { item: CatalogItem }) {
