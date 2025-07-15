@@ -3,8 +3,10 @@ import { useQuery } from '@tanstack/react-query';
 import type { CatalogItem } from '@/types/Catalog';
 import CartService from '@/services/CartService';
 
+type CartItem = CatalogItem & { quantity: number };
+
 export const useCart = () => {
-	const [items, setItems] = useState<CatalogItem[]>(() => {
+	const [items, setItems] = useState<CartItem[]>(() => {
 		const savedCart = localStorage.getItem('cart');
 		return savedCart ? JSON.parse(savedCart) : [];
 	});
@@ -18,9 +20,19 @@ export const useCart = () => {
 
 	const addItem = (item: CatalogItem) => {
 		setItems((prevItems) => {
-			const newItems = [...prevItems, item];
-			localStorage.setItem('cart', JSON.stringify(newItems));
-			return newItems;
+			const existingItem = prevItems.find((i) => i.id === item.id);
+
+			if (existingItem) {
+				const updatedItems = prevItems.map((i) =>
+					i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+				);
+				localStorage.setItem('cart', JSON.stringify(updatedItems));
+				return updatedItems;
+			} else {
+				const newItems = [...prevItems, { ...item, quantity: 1 }];
+				localStorage.setItem('cart', JSON.stringify(newItems));
+				return newItems;
+			}
 		});
 
 		refetchTotal();

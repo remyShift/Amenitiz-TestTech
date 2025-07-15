@@ -38,7 +38,7 @@ describe('Cart', () => {
 
     it('should display cart item name when cart has one item', () => {
         vi.mocked(useCart).mockReturnValue({
-            items: [{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23 }],
+            items: [{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23, quantity: 1 }],
             total: 0,
             addItem: vi.fn(),
             removeItem: vi.fn(),

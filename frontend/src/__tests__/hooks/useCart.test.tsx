@@ -26,7 +26,7 @@ describe('useCart', () => {
             result.current.addItem(itemToAdd);
         });
 
-        expect(result.current.items).toEqual([itemToAdd]);
+        expect(result.current.items).toEqual([{ ...itemToAdd, quantity: 1 }]);
     });
 
     it('should add multiple items to the cart when the addItem function is called multiple times but items should be unique and aggregated by quantity', () => {
@@ -54,7 +54,7 @@ describe('useCart', () => {
             result.current.addItem(itemToAdd);
         });
 
-        expect(result.current.items).toEqual([itemToAdd]);
+        expect(result.current.items).toEqual([{ ...itemToAdd, quantity: 1 }]);
 
         await act(async () => {
             await result.current.computeOrderTotal();
@@ -91,13 +91,13 @@ describe('useCart', () => {
             result.current.addItem(itemToAdd4);
         });
 
-        expect(result.current.items).toEqual([itemToAdd, itemToAdd2, itemToAdd3, itemToAdd4]);
+        expect(result.current.items).toEqual([{ ...itemToAdd, quantity: 1 }, { ...itemToAdd2, quantity: 1 }, { ...itemToAdd3, quantity: 1 }, { ...itemToAdd4, quantity: 1 }]);
 
         act(() => {
             result.current.removeItem(itemToAdd2);
         });
 
-        expect(result.current.items).toEqual([itemToAdd, itemToAdd3, itemToAdd4]);
+        expect(result.current.items).toEqual([{ ...itemToAdd, quantity: 1 }, { ...itemToAdd3, quantity: 1 }, { ...itemToAdd4, quantity: 1 }]);
     });
 
     it('should calculate the total price of the cart with the computeOrderTotal function when an item is removed', async () => {
