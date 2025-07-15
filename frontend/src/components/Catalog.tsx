@@ -22,7 +22,7 @@ export default function Catalog() {
             const interval = setInterval(() => {
                 setProgressValue((prev) => {
                     if (prev >= 100) return 0;
-                    return prev + 2;
+                    return prev + 3;
                 });
             }, 50);
 
