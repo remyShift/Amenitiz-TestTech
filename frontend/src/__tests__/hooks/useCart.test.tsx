@@ -63,4 +63,16 @@ describe('useCart', () => {
             expect(result.current.total).toEqual(10);
         });
     });
+
+    it('should calculate the total price of the cart with the computeOrderTotal function when an item is added', async () => {
+        const { result } = renderHook(() => useCart());
+
+        act(() => {
+            result.current.addItem(itemToAdd);
+        });
+
+        await waitFor(() => {
+            expect(result.current.total).toEqual(10);
+        });
+    });
 });
