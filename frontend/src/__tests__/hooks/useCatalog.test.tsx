@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { useCatalog } from '@/hooks/useCatalog';
 
@@ -22,5 +22,12 @@ describe('useCatalog', () => {
         result.current.fetchCatalog();
         expect(mockGetCatalog).toHaveBeenCalledTimes(1);
     });
-  }
-);
+
+    it('should set loading to false when the catalog is fetched', async () => {
+        const { result } = renderHook(() => useCatalog());
+
+        await act(async () => result.current.fetchCatalog());
+
+        expect(result.current.loading).toBe(false);
+    });
+});

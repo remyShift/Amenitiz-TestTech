@@ -5,9 +5,8 @@ export const useCatalog = () => {
 	const [loading, setLoading] = useState(true);
 
 	const fetchCatalog = async () => {
-		CatalogService.getCatalog().then(() => {
-			setLoading(false);
-		});
+		await CatalogService.getCatalog();
+		setLoading(false);
 	};
 
 	return {
