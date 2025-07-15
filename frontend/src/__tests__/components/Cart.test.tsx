@@ -61,7 +61,8 @@ describe('Cart', () => {
         });
 
         render(<Cart />);
-        expect(screen.getByText('11.23€')).toBeInTheDocument();
+        expect(screen.getByTestId('total-price')).toBeInTheDocument();
+        expect(screen.getByTestId('total-price').textContent).toBe('11.23€');
     });
 
     it('should display a remove button for each item in the cart', () => {
@@ -103,7 +104,7 @@ describe('Cart', () => {
             removeItem: removeItem,
             computeOrderTotal: vi.fn()
         });
-        
+
         rerender(<Cart />);
         expect(screen.getByText('1')).toBeInTheDocument();
     });
