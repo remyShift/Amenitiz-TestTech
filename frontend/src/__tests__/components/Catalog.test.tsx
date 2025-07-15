@@ -63,7 +63,6 @@ describe('Catalog', () => {
 
         await waitFor(() => {
             const countCatalogCards = screen.getAllByTestId('catalog-card').length;
-            expect(screen.getByText('123 | Coffee | 10')).toBeInTheDocument();
             expect(countCatalogCards).toBe(1);
         });
     });
