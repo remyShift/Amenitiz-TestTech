@@ -48,7 +48,7 @@ export default function Catalog() {
     }
 
     return (
-        <div data-testid="catalog" className="flex flex-col gap-4">
+        <div data-testid="catalog" className="lg:w-[70%] flex justify-center flex-wrap gap-4">
             {catalog!.map((item: CatalogItem) => (
                 <ItemCard key={item.id} item={item} />
             ))}

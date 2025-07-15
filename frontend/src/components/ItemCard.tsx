@@ -8,7 +8,7 @@ export default function ItemCard({ item }: { item: CatalogItem }) {
     const { addItem } = useCart();
 
     return (
-        <Card data-testid="catalog-card">
+        <Card data-testid="catalog-card" className="md:w-72 lg:w-96">
             <CardHeader className="flex flex-col gap-0">
                 <CardTitle className="text-lg">
                     {item.name}
