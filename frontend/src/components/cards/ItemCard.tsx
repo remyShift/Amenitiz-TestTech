@@ -16,16 +16,13 @@ export default function ItemCard({ item }: { item: CatalogItem }) {
                         Ref: {item.code}
                 </p>
             </CardHeader>
-            
-            <CardContent>
-                <div className="flex flex-col gap-2 ">
 
-                    <p className="text-xl font-bold text-main text-right">
-                        {item.price}€
-                    </p>
-                </div>
+            <CardContent>
+                <p className="text-xl font-bold text-main text-right">
+                    {item.price.toFixed(2)}€
+                </p>
             </CardContent>
-            
+
             <CardFooter>
                 <Button
                     data-testid="add-button" 
