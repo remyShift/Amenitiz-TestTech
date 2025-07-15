@@ -1,6 +1,6 @@
 import { useCatalog } from "@/hooks/useCatalog";
 import type { CatalogItem } from "@/types/Catalog";
-import CatalogCard from "@/components/cards/CatalogCard";
+import ItemCard from "@/components/cards/ItemCard";
 
 export default function Catalog() {
     const { isLoading, error, data: catalog } = useCatalog();
@@ -19,7 +19,7 @@ export default function Catalog() {
     return (
         <div data-testid="catalog" className="flex flex-col gap-4">
             {catalog!.map((item: CatalogItem) => (
-                <CatalogCard key={item.id} item={item} />
+                <ItemCard key={item.id} item={item} />
             ))}
         </div>
     );
