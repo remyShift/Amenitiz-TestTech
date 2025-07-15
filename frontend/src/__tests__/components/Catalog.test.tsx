@@ -1,9 +1,20 @@
-import { describe, it, expect } from 'vitest';
-import { act, render, renderHook, screen } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, waitFor } from '@testing-library/react';
 import Catalog from '@/components/Catalog';
-import { useCatalog } from '@/hooks/useCatalog';
+
+const mockGetCatalog = vi.hoisted(() => vi.fn().mockResolvedValue([]));
+
+vi.mock('../../services/CatalogService', () => ({
+    default: {
+        getCatalog: mockGetCatalog,
+    },
+}));
 
 describe('Catalog', () => {
+    beforeEach(() => {
+        mockGetCatalog.mockClear();
+    });
+
     it('should render the catalog', () => {
         render(<Catalog />);
 
@@ -11,13 +22,16 @@ describe('Catalog', () => {
     });
 
     it('should call the fetchCatalog function when the component is mounted and set loading to false when the catalog is fetched', async () => {
-        const { result } = renderHook(() => useCatalog());
         render(<Catalog />);
 
-        expect(screen.getByTestId('catalog')).toBeDefined();
+        expect(screen.getByTestId('loading')).toBeDefined();
 
-        await act(async () => result.current.fetchCatalog());
+        await waitFor(() => {
+            expect(mockGetCatalog).toHaveBeenCalledTimes(1);
+        });
 
-        expect(result.current.loading).toBe(false);
+        await waitFor(() => {
+            expect(screen.queryByTestId('loading')).toBeNull();
+        });
     });
 });

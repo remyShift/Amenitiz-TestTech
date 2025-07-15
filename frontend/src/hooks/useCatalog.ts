@@ -20,6 +20,7 @@ export const useCatalog = () => {
 				setError(
 					`An error occurred while fetching the catalog : ${error.message}`
 				);
+				setLoading(false);
 			});
 	};
 
