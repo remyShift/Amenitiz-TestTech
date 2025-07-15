@@ -98,13 +98,6 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
-    factory_bot (6.5.4)
-      activesupport (>= 6.1.0)
-    factory_bot_rails (6.5.0)
-      factory_bot (~> 6.5)
-      railties (>= 6.1.0)
-    faker (3.5.2)
-      i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -328,8 +321,6 @@ GEM
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
     shellany (0.0.1)
-    shoulda-matchers (6.5.0)
-      activesupport (>= 5.2.0)
     solid_cable (3.0.11)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -396,8 +387,6 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
-  factory_bot_rails
-  faker
   guard
   guard-rspec
   kamal
@@ -406,7 +395,6 @@ DEPENDENCIES
   rails (~> 8.0.2)
   rspec-rails
   rubocop-rails-omakase
-  shoulda-matchers
   solid_cable
   solid_cache
   solid_queue
