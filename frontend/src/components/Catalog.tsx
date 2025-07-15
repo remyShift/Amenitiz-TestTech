@@ -1,7 +1,8 @@
 import { useCatalog } from "@/hooks/useCatalog";
+import type { CatalogItem } from "@/types/Catalog";
 
 export default function Catalog() {
-    const { isLoading, error } = useCatalog();
+    const { isLoading, error, data: catalog } = useCatalog();
 
     if (isLoading) {
         return <div data-testid="loading">Loading...</div>;
@@ -13,7 +14,11 @@ export default function Catalog() {
 
     return (
         <div data-testid="catalog">
-            Catalog
+            {catalog!.map((item: CatalogItem) => (
+                <div data-testid="catalog-item" key={item.id}>
+                    {item.name}
+                </div>
+            ))}
         </div>
     );
 }
