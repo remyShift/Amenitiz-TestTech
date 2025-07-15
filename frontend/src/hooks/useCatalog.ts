@@ -1,5 +1,5 @@
 export const useCatalog = () => {
 	return {
-		loading: true,
+		loading: false,
 	};
 };
