@@ -79,7 +79,9 @@ describe('Cart', () => {
 
     it('should call the removeItem function when the remove button is clicked', () => {
         const removeItem = vi.fn();
-        vi.mocked(useCart).mockReturnValue({
+        const mockUseCart = vi.mocked(useCart);
+        
+        mockUseCart.mockReturnValue({
             items: [{ id: 1, code: 'GR1', name: 'Green Tea', price: 3.11, quantity: 2 }, { id: 2, code: 'SR1', name: 'Strawberries', price: 5, quantity: 3 }],
             total: 3.11,
             addItem: vi.fn(),
@@ -87,11 +89,22 @@ describe('Cart', () => {
             computeOrderTotal: vi.fn()
         });
 
-        render(<Cart />);
+        const { rerender } = render(<Cart />);
+        
         fireEvent.click(screen.getAllByTestId('remove-button')[0]);
+        
         expect(removeItem).toHaveBeenCalledWith({ id: 1, code: 'GR1', name: 'Green Tea', price: 3.11, quantity: 2 });
         expect(removeItem).toHaveBeenCalledTimes(1);
-        expect(screen.getByText('1')).toBeInTheDocument();
+
+        mockUseCart.mockReturnValue({
+            items: [{ id: 1, code: 'GR1', name: 'Green Tea', price: 3.11, quantity: 1 }, { id: 2, code: 'SR1', name: 'Strawberries', price: 5, quantity: 3 }],
+            total: 3.11,
+            addItem: vi.fn(),
+            removeItem: removeItem,
+            computeOrderTotal: vi.fn()
+        });
         
+        rerender(<Cart />);
+        expect(screen.getByText('1')).toBeInTheDocument();
     });
 });

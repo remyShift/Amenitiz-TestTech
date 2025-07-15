@@ -44,7 +44,7 @@ export const useCart = () => {
 				i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i
 			);
 			const filteredItems = newItems.filter((i) => i.quantity > 0);
-			localStorage.setItem('cart', JSON.stringify(newItems));
+			localStorage.setItem('cart', JSON.stringify(filteredItems));
 			return filteredItems;
 		});
 
