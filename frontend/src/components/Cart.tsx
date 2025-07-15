@@ -11,6 +11,7 @@ export default function Cart() {
                     <h1>{item.name}</h1>
                     <p>{item.price}€</p>
                     <p>{item.quantity}</p>
+                    <button data-testid="remove-button">Remove</button>
                 </div>
             ))}
         </div>

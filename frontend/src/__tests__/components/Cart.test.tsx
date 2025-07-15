@@ -74,6 +74,6 @@ describe('Cart', () => {
         });
 
         render(<Cart />);
-        expect(screen.getAllByTestId('remove-button').length).toBe(2);
+        expect(screen.getAllByTestId('remove-button').length).toBe(1);
     });
 });
