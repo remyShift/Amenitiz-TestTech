@@ -9,15 +9,24 @@ class CartService {
 			quantity: item.quantity,
 		}));
 
-		const response = await fetch(`${this.baseUrl}/cart/total`, {
+		return fetch(`${this.baseUrl}/cart/total`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(itemsToSend),
-		});
-
-		return response.json().then((data) => data.total);
+		})
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				return response.json();
+			})
+			.then((data) => data.total)
+			.catch((error) => {
+				console.error('Error calculating total:', error);
+				throw error;
+			});
 	}
 }
 
