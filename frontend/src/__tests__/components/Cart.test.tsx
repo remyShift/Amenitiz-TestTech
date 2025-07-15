@@ -17,4 +17,16 @@ describe('Cart', () => {
         render(<Cart />);
         expect(screen.getByText('Empty cart')).toBeInTheDocument();
     });
+
+    it('should display cart item name when cart has one item', () => {
+        vi.mock('@/hooks/useCart', () => ({
+            useCart: () => ({ 
+                items: [{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23 }],
+                total: 0 
+            })
+        }));
+
+        render(<Cart />);
+        expect(screen.getByText('Coffee')).toBeInTheDocument();
+    });
 });
