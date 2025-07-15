@@ -49,12 +49,12 @@ describe('useCatalog', () => {
     });
 
     it('should set the catalog when the catalog is fetched without error', async () => {
-        mockGetCatalog.mockResolvedValue([{ id: 1, name: 'Coffee', price: 10 }]);
+        mockGetCatalog.mockResolvedValue([{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23 }]);
 
         const { result } = renderHook(() => useCatalog());
 
         await waitFor(() => {
-            expect(result.current.data).toEqual([{ id: 1, name: 'Coffee', price: 10 }]);
+            expect(result.current.data).toEqual([{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23 }]);
             expect(result.current.isLoading).toBe(false);
         });
     });

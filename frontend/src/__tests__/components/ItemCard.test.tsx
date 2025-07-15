@@ -8,7 +8,7 @@ vi.mock('@/hooks/useCart', () => ({
     useCart: vi.fn(),
 }));
 
-describe('CatalogCard', () => {
+describe('ItemCard', () => {
     const mockAddItem = vi.fn();
     
     beforeEach(() => {
@@ -23,7 +23,7 @@ describe('CatalogCard', () => {
     });
 
     it('should display the card with the item data when the item is provided', () => {
-        const item = { id: 1, code: '123', name: 'Coffee', price: 10 };
+        const item = { id: 1, code: 'CF1', name: 'Coffee', price: 11.23 };
 
         render(<ItemCard item={item} />);
 
@@ -34,7 +34,7 @@ describe('CatalogCard', () => {
     });
 
     it('should have a button to add the item to the cart', () => {
-        const item = { id: 1, code: '123', name: 'Coffee', price: 10 };
+        const item = { id: 1, code: 'CF1', name: 'Coffee', price: 11.23 };
 
         render(<ItemCard item={item} />);
 
@@ -42,7 +42,7 @@ describe('CatalogCard', () => {
     });
 
     it('should call the addItem function when the button is clicked', () => {
-        const item = { id: 1, code: '123', name: 'Coffee', price: 10 };
+        const item = { id: 1, code: 'CF1', name: 'Coffee', price: 11.23 };
 
         render(<ItemCard item={item} />);
 

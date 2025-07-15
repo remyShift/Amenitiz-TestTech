@@ -57,7 +57,7 @@ describe('Catalog', () => {
     });
 
     it('should display the cards with the catalog items when the catalog is fetched without error', async () => {
-        mockGetCatalog.mockResolvedValue([{ id: 1, code: '123', name: 'Coffee', price: 10 }]);
+        mockGetCatalog.mockResolvedValue([{ id: 1, code: 'CF1', name: 'Coffee', price: 11.23 }]);
 
         render(<Catalog />);
 
