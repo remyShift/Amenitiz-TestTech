@@ -30,4 +30,14 @@ describe('useCatalog', () => {
 
         expect(result.current.loading).toBe(false);
     });
+
+    it('should set an error when the catalog service throws an error', async () => {
+        mockGetCatalog.mockRejectedValue(new Error('Error'));
+
+        const { result } = renderHook(() => useCatalog());
+
+        await act(async () => result.current.fetchCatalog());
+
+        expect(result.current.error).toBe(true);
+    });
 });
