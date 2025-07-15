@@ -2,10 +2,11 @@ import { useCart } from "@/hooks/useCart";
 import { act, renderHook, waitFor } from "@/__tests__/utils/test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CatalogItem } from "@/types/Catalog";
+import CartService from '@/services/CartService';
 
 vi.mock('@/services/CartService', () => ({
     default: {
-        calculateOrderTotal: vi.fn().mockResolvedValue(10),
+        calculateOrderTotal: vi.fn().mockResolvedValue(5),
     },
 }));
 
@@ -15,7 +16,7 @@ describe('useCart', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         localStorage.clear();
-        itemToAdd = { id: 1, code: '123', name: 'Coffee', price: 10 };
+        itemToAdd = { id: 1, code: 'SR1', name: 'Strawberries', price: 5 };
     });
 
     it('should add an item to the cart when the addItem function is called', () => {
@@ -60,7 +61,7 @@ describe('useCart', () => {
         });
 
         await waitFor(() => {
-            expect(result.current.total).toEqual(10);
+            expect(result.current.total).toEqual(itemToAdd.price);
         });
     });
 
@@ -72,7 +73,7 @@ describe('useCart', () => {
         });
 
         await waitFor(() => {
-            expect(result.current.total).toEqual(10);
+            expect(result.current.total).toEqual(itemToAdd.price);
         });
     });
 
@@ -110,6 +111,9 @@ describe('useCart', () => {
             expect(result.current.total).toEqual(itemToAdd.price);
         });
 
+        const mockCalculateOrderTotal = vi.mocked(CartService.calculateOrderTotal);
+        mockCalculateOrderTotal.mockResolvedValue(0);
+
         act(() => {
             result.current.removeItem(itemToAdd);
         });
@@ -117,5 +121,6 @@ describe('useCart', () => {
         await waitFor(() => {
             expect(result.current.total).toEqual(0);
         });
-    }); 
+
+    });
 });

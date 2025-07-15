@@ -6,6 +6,10 @@ class CartService {
 	async calculateOrderTotal(items: CatalogItem[]): Promise<number> {
 		const aggregatedCodes = items.map((item) => item.code).join(',');
 
+		if (aggregatedCodes.length === 0) {
+			return 0;
+		}
+
 		const response = await fetch(`${this.baseUrl}/cart/total`, {
 			method: 'POST',
 			body: JSON.stringify(aggregatedCodes),
