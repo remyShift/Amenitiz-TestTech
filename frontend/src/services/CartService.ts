@@ -4,9 +4,11 @@ class CartService {
 	private baseUrl = 'http://localhost:3000';
 
 	async calculateOrderTotal(items: CatalogItem[]): Promise<number> {
+		const aggregatedCodes = items.map((item) => item.code).join(',');
+
 		const response = await fetch(`${this.baseUrl}/cart/total`, {
 			method: 'POST',
-			body: JSON.stringify(items),
+			body: JSON.stringify(aggregatedCodes),
 		});
 
 		return response.json();

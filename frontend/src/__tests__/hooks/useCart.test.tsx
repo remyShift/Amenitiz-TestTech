@@ -1,5 +1,5 @@
 import { useCart } from "@/hooks/useCart";
-import { act, renderHook } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@/__tests__/utils/test-utils";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CatalogItem } from "@/types/Catalog";
 
@@ -14,6 +14,7 @@ describe('useCart', () => {
 
     beforeEach(() => {
         vi.clearAllMocks();
+        localStorage.clear();
         itemToAdd = { id: 1, code: '123', name: 'Coffee', price: 10 };
     });
 
@@ -32,7 +33,13 @@ describe('useCart', () => {
 
         act(() => {
             result.current.addItem(itemToAdd);
+        });
+
+        act(() => {
             result.current.addItem(itemToAdd);
+        });
+
+        act(() => {
             result.current.addItem(itemToAdd);
         });
 
@@ -46,10 +53,14 @@ describe('useCart', () => {
             result.current.addItem(itemToAdd);
         });
 
+        expect(result.current.items).toEqual([itemToAdd]);
+
         await act(async () => {
             await result.current.computeOrderTotal();
         });
 
-        expect(result.current.total).toEqual(10);
+        await waitFor(() => {
+            expect(result.current.total).toEqual(10);
+        });
     });
 });
