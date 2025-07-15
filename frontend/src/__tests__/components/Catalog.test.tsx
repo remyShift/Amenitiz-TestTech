@@ -23,17 +23,25 @@ describe('Catalog', () => {
         });
     });
 
-    it('should call the fetchCatalog function when the component is mounted and set loading to false when the catalog is fetched', async () => {
+    it('should have a loader displayed when the component is mounted', async () => {
         render(<Catalog />);
 
-        expect(screen.getByTestId('loading')).toBeInTheDocument();
+        expect(screen.getByTestId('loader')).toBeInTheDocument();
+    });
+
+    it('should call the fetchCatalog function when the component is mounted', async () => {
+        render(<Catalog />);
 
         await waitFor(() => {
             expect(mockGetCatalog).toHaveBeenCalledTimes(1);
         });
+    });
+
+    it('should set loading to false when the catalog is fetched', async () => {
+        render(<Catalog />);
 
         await waitFor(() => {
-            expect(screen.queryByTestId('loading')).not.toBeInTheDocument();
+            expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
             expect(screen.getByTestId('catalog')).toBeInTheDocument();
         });
     });
@@ -44,7 +52,7 @@ describe('Catalog', () => {
         render(<Catalog />);
 
         await waitFor(() => {
-            expect(screen.getByTestId('error')).toBeInTheDocument();
+            expect(screen.getByTestId('error-message')).toBeInTheDocument();
         });
     });
 

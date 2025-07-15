@@ -6,11 +6,14 @@ export default function Catalog() {
     const { isLoading, error, data: catalog } = useCatalog();
 
     if (isLoading) {
-        return <div data-testid="loading">Loading...</div>;
+        return <div data-testid="loader">Loading...</div>;
     }
 
     if (error) {
-        return <div data-testid="error">Error: {error.message}</div>;
+        return <div data-testid="error-message">
+            <p>Error: {error.message}</p>
+            <p>Please try again later.</p>
+        </div>;
     }
 
     return (
