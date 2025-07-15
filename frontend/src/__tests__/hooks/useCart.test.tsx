@@ -4,7 +4,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CatalogItem } from "@/types/Catalog";
 
 vi.mock('@/services/CartService', () => ({
-    calculateTotal: vi.fn().mockReturnValue(10),
+    default: {
+        calculateOrderTotal: vi.fn().mockResolvedValue(10),
+    },
 }));
 
 describe('useCart', () => {
@@ -37,15 +39,15 @@ describe('useCart', () => {
         expect(result.current.items).toEqual([itemToAdd, itemToAdd, itemToAdd]);
     });
 
-    it('should calculate the total price of the cart with the computeOrderTotal function', () => {
+    it('should calculate the total price of the cart with the computeOrderTotal function', async () => {
         const { result } = renderHook(() => useCart());
 
         act(() => {
             result.current.addItem(itemToAdd);
         });
 
-        act(() => {
-            result.current.computeOrderTotal();
+        await act(async () => {
+            await result.current.computeOrderTotal();
         });
 
         expect(result.current.total).toEqual(10);
