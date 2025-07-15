@@ -1,21 +1,23 @@
-import type { CatalogItem } from '@/types/Catalog';
+import type { CartItem } from '@/types/Cart';
 
 class CartService {
 	private baseUrl = 'http://localhost:3000';
 
-	async calculateOrderTotal(items: CatalogItem[]): Promise<number> {
-		const aggregatedCodes = items.map((item) => item.code).join(',');
-
-		if (aggregatedCodes.length === 0) {
-			return 0;
-		}
+	async calculateOrderTotal(items: CartItem[]): Promise<number> {
+		const itemsToSend = items.map((item) => ({
+			code: item.code,
+			quantity: item.quantity,
+		}));
 
 		const response = await fetch(`${this.baseUrl}/cart/total`, {
 			method: 'POST',
-			body: JSON.stringify(aggregatedCodes),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(itemsToSend),
 		});
 
-		return response.json();
+		return response.json().then((data) => data.total);
 	}
 }
 

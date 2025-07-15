@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { CatalogItem } from '@/types/Catalog';
+import type { CartItem } from '@/types/Cart';
 import CartService from '@/services/CartService';
-
-type CartItem = CatalogItem & { quantity: number };
 
 export const useCart = () => {
 	const [items, setItems] = useState<CartItem[]>(() => {
