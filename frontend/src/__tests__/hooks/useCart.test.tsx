@@ -1,5 +1,5 @@
 import { useCart } from "@/hooks/useCart";
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 describe('useCart', () => {
@@ -7,7 +7,9 @@ describe('useCart', () => {
         const itemToAdd = { id: 1, code: '123', name: 'Coffee', price: 10 };
         const { result } = renderHook(() => useCart());
 
-        result.current.addItem(itemToAdd);
+        act(() => {
+            result.current.addItem(itemToAdd);
+        });
 
         expect(result.current.items).toEqual([itemToAdd]);
     });
