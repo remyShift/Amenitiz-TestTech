@@ -7,7 +7,7 @@ export default function ItemCard({ item }: { item: CatalogItem }) {
     const { addItem } = useCart();
 
     return (
-        <Card data-testid="catalog-card" className="md:w-72 lg:w-96">
+        <Card data-testid="catalog-card" className="w-[90dvw] md:w-72 lg:w-96">
             <CardHeader className="flex flex-col gap-0">
                 <CardTitle className="text-lg">
                     {item.name}
@@ -17,21 +17,23 @@ export default function ItemCard({ item }: { item: CatalogItem }) {
                 </p>
             </CardHeader>
 
-            <CardContent>
-                <p className="text-xl font-bold text-main text-right">
-                    {item.price.toFixed(2)}€
-                </p>
-            </CardContent>
+            <div className="flex gap-4 justify-between">
+                <CardContent>
+                    <p className="text-xl font-bold text-main">
+                        {item.price.toFixed(2)}€
+                    </p>
+                </CardContent>
 
-            <CardFooter>
-                <Button
-                    data-testid="add-button" 
-                    onClick={() =>  addItem(item)}
-                    size="lg"
-                >
-                    Add to cart
-                </Button>
-            </CardFooter>
+                <CardFooter>
+                    <Button
+                        data-testid="add-button" 
+                        onClick={() =>  addItem(item)}
+                        size="default"
+                    >
+                        Add to cart
+                    </Button>
+                </CardFooter>
+            </div>
         </Card>
     );
 }
