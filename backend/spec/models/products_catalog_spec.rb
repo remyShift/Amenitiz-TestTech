@@ -28,4 +28,15 @@ RSpec.describe ProductsCatalog, type: :model do
             expect(result).to be_nil
         end
     end
+
+    describe ".all" do
+        it "should return all products with the same structure as before" do
+            products = ProductsCatalog.all
+            expect(products).to be_an(Array)
+            expect(products.length).to eq(3)
+            
+            green_tea = products.find { |p| p[:code] == "GR1" }
+            expect(green_tea).to eq({ code: "GR1", name: "Green Tea", price: 3.11 })
+        end
+    end
 end
