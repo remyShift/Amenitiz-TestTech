@@ -28,7 +28,6 @@ RSpec.describe Product, type: :model do
         end
 
         it "should require a unique code" do
-            Product.create!(code: "GR1", name: "Green Tea", price: 3.11)
             product = Product.new(code: "GR1", name: "Another Product", price: 5.00)
             expect(product).not_to be_valid
             expect(product.errors[:code]).to include("has already been taken")
