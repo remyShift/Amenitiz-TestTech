@@ -1,14 +1,21 @@
 class ProductsCatalog
     def self.find(code)
-        product = Product.find_by(code: code)
-        return nil unless product
-        
-        return product
+        products_cache[code]
     end
 
     def self.all
-        Product.all.map do |product|
+        products_cache.values.map do |product|
             { code: product.code, name: product.name, price: product.price }
         end
+    end
+
+    def self.reset_cache!
+        @products_cache = nil
+    end
+
+    private
+
+    def self.products_cache
+        @products_cache ||= Product.all.index_by(&:code)
     end
 end

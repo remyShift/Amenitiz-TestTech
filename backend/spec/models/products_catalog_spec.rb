@@ -42,9 +42,12 @@ RSpec.describe ProductsCatalog, type: :model do
 
     describe "performance optimization" do
         it "should cache products to avoid multiple DB queries" do
-            expect(Product).to receive(:find_by).once.and_call_original
-            
+            ProductsCatalog.reset_cache!
+
+            expect(Product).to receive(:all).once.and_call_original
+
             2.times { ProductsCatalog.find("GR1") }
+            2.times { ProductsCatalog.all }
         end
     end
 end
