@@ -40,4 +40,13 @@ RSpec.describe Product, type: :model do
             expect(product.errors[:price]).to include("must be greater than 0")
         end
     end
+    
+    describe "data seeding" do
+        it "should have the 3 basic products in database" do
+            expect(Product.count).to eq(3)
+            expect(Product.find_by(code: "GR1")).to be_present
+            expect(Product.find_by(code: "SR1")).to be_present
+            expect(Product.find_by(code: "CF1")).to be_present
+        end
+    end
 end 
