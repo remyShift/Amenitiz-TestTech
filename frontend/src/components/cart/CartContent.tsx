@@ -15,7 +15,13 @@ export default function CartContent() {
                     <h1>{item.name}</h1>
                     <p>{item.price}€</p>
                     <p>{item.quantity}</p>
-                    <Button data-testid="remove-button" onClick={() => removeItem(item)} className="bg-red-500 rounded-md">Remove</Button>
+                    <Button data-testid="remove-button"
+                        onClick={() => removeItem(item)}
+                        className="bg-red-500 rounded-md font-bold text-2xl"
+                        size="icon"
+                    >
+                        -
+                    </Button>
                 </div>
             ))}
         </>
