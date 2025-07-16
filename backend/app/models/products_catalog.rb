@@ -7,6 +7,8 @@ class ProductsCatalog
     end
 
     def self.all
-
+        Product.all.map do |product|
+            { code: product.code, name: product.name, price: product.price }
+        end
     end
 end
